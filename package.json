@@ -1,5 +1,5 @@
 {
-  "name": "react-phone-input-mui",
+  "name": "react-phone-input-material-ui",
   "description": "A react component to format phone numbers - with Material UI",
   "version": "2.13.7",
   "main": "lib/lib.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cezarderevlean/react-phone-input-2-mui"
+    "url": "https://github.com/harish-everest/react-phone-input-2-mui-2"
   },
   "keywords": [
     "react",
@@ -46,9 +46,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cezarderevlean/react-phone-input-2-mui/issues"
+    "url": "https://github.com/harish-everest/react-phone-input-2-mui/issues"
   },
-  "homepage": "https://github.com/cezarderevlean/react-phone-input-2-mui",
+  "homepage": "https://github.com/harish-everest/react-phone-input-2-mui",
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "@material-ui/core": "^3.9.3",

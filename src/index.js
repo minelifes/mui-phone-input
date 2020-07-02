@@ -173,15 +173,6 @@ class PhoneInput extends React.Component {
 
     if (props.regions) filteredCountries = this.filterRegions(props.regions, filteredCountries);
     if (Object.keys(props.masks).length !== 0) filteredCountries = this.insertMasks(props.masks, filteredCountries);
-
-    const onlyCountries = this.excludeCountries(
-      this.getOnlyCountries(props.onlyCountries, filteredCountries), props.excludeCountries);
-
-    const preferredCountries = filteredCountries.filter((country) => {
-      return props.preferredCountries.some((preferredCountry) => {
-        return preferredCountry === country.iso2;
-      });
-    });
     const { onlyCountries, preferredCountries, hiddenAreaCodes } = new CountryData(
       props.enableAreaCodes, props.enableTerritories, props.regions,
       props.onlyCountries, props.preferredCountries, props.excludeCountries, props.preserveOrder,
