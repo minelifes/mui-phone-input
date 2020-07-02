@@ -1030,12 +1030,12 @@ class PhoneInput extends React.Component {
           placeholder={this.props.placeholder}
           disabled={this.props.disabled}
           fullWidth
-          error={isValidValue}
+          error={!isValidValue}
           type='tel'
           {...this.props.inputProps}
         />
 
-        <div className={flagViewClasses} style={this.props.buttonStyle} ref={(el) => (this.dropdownContainerRef = el)}>
+        <div className={flagViewClasses} style={this.props.buttonStyle}>
           {renderStringAsFlag ? (
             <div className={selectedFlagClasses}>{renderStringAsFlag}</div>
           ) : (
@@ -1050,9 +1050,8 @@ class PhoneInput extends React.Component {
               <div className={inputFlagClasses}>{!disableDropdown && <div className={arrowClasses}></div>}</div>
             </div>
           )}
-
-          {showDropdown && this.getCountryDropdownList()}
         </div>
+        <div ref={(el) => (this.dropdownContainerRef = el)}>{showDropdown && this.getCountryDropdownList()}</div>
       </div>
     );
   }

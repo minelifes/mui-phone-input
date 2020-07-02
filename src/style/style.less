@@ -2,53 +2,19 @@
 
 .react-tel-input {
   .form-control {
-    position: relative;
-    font-size: 14px;
-    letter-spacing: .01rem;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-left: 48px;
-    margin-left: 0;
-    background: #FFFFFF;
-    border: 1px solid #CACACA;
-    border-radius: 5px;
-    line-height: 25px;
-    height: 35px;
-    width: 300px;
-    outline: none;
-    &.invalid-number {
-      border: 1px solid #d79f9f;
-      background-color: #FAF0F0;
-      border-left-color: #cacaca;
-      &:focus {
-        border: 1px solid #d79f9f;
-        border-left-color: #cacaca;
-        background-color: #FAF0F0;
-      }
-    }
+    padding-left: 36px;
   }
   .flag-dropdown {
     position: absolute;
     top: 0;
     bottom: 0;
     padding: 0;
-    background-color: #f5f5f5;
-    border: 1px solid #cacaca;
-    border-radius: 3px 0 0 3px;
+
     &:hover, &:focus {
       cursor: pointer;
     }
     &.invalid-number {
       border-color: #d79f9f;
-    }
-    &.open {
-      z-index: 2;
-      background: #fff;
-      border-radius: 3px 0 0 0;
-      .selected-flag {
-        background: #fff;
-        border-radius: 3px 0 0 0;
-      }
     }
   }
   input[disabled] {
@@ -66,15 +32,13 @@
     position: relative;
     width: 38px;
     height: 100%;
-    padding: 0 0 0 8px;
-    border-radius: 3px 0 0 3px;
     &:hover, &:focus {
       background-color: #fff;
     }
     .flag {
       position: absolute;
       top: 50%;
-      margin-top: -5px;
+      margin-top: -7px;
     }
     .arrow {
       position: relative;
@@ -101,7 +65,7 @@
     margin: 10px 0 10px -1px;
     box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.35);
     background-color: white;
-    width: 300px;
+    width: 100%;
     max-height: 200px;
     overflow-y: scroll;
     border-radius: 0 0 3px 3px;
