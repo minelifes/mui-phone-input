@@ -1,12 +1,17 @@
 {
   "name": "react-phone-input-mui",
   "description": "A react component to format phone numbers - with Material UI",
-  "version": "2.9.4",
-  "main": "dist/lib.js",
+  "version": "2.13.7",
+  "main": "lib/lib.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "jest",
-    "start": "TARGET=dev NODE_ENV=development webpack-dev-server --progress",
-    "build": "TARGET=build NODE_ENV=production webpack -p --progress",
+    "start": "TARGET=dev:js NODE_ENV=development webpack-dev-server --progress",
+    "start:css": "TARGET=dev:css NODE_ENV=development webpack-dev-server --progress",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "TARGET=build:js NODE_ENV=production webpack -p --progress",
+    "build:css": "TARGET=build:css NODE_ENV=production webpack -p --progress && rm ./main.js",
+    "prepublishOnly": "npm run build",
     "analyze": "TARGET=analyze NODE_ENV=production webpack -p --progress"
   },
   "repository": {
@@ -22,17 +27,22 @@
     "telephone",
     "javascript",
     "international",
-    "tel"
+    "tel",
+    "localized",
+    "material",
+    "bootstrap",
+    "i18n"
   ],
   "files": [
+    "lang",
+    "lib",
     "LICENSE",
     "README.md",
-    "dist/lib.js",
-    "dist/style.css"
+    "index.d.ts"
   ],
-  "author": "Nikita Lebedev <bloomber111@gmail.com> (http://github.com/bl00mber)",
+  "author": "Nick Reiley <bloomber111@gmail.com> (https://github.com/bl00mber)",
   "contributors": [
-    "Raza Gill <raza.gill@outlook.com> (http://github.com/razagill)"
+    "Raza Gill <raza.gill@outlook.com> (https://github.com/razagill)"
   ],
   "license": "MIT",
   "bugs": {
@@ -47,13 +57,14 @@
     "babel-preset-react-app": "^7.0.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^2.1.0",
-    "file-loader": "^0.8.5",
+    "mini-css-extract-plugin": "^0.5.0",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^5.0.2",
     "jest": "^24.7.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.5.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-hot-loader": "^4.6.5",
     "react-testing-library": "^6.0.4",
     "style-loader": "^0.23.1",
@@ -69,6 +80,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.memoize": "^4.1.2",
     "lodash.reduce": "^4.6.0",
+    "lodash.startswith": "^4.2.1",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

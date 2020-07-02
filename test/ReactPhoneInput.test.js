@@ -1,14 +1,14 @@
 import { render, fireEvent, cleanup } from 'react-testing-library'
 import React from 'react'
-import ReactPhoneInput from '../src/index'
+import PhoneInput from '../src/index'
 
 
 afterEach(cleanup)
 
-describe('<ReactPhoneInput /> countries props', () => {
+describe('<PhoneInput /> countries props', () => {
   test('has not "us" country in the dropdown', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         excludeCountries={['us']}
       />)
 
@@ -19,7 +19,7 @@ describe('<ReactPhoneInput /> countries props', () => {
 
   test('has only "us" country in the dropdown', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         onlyCountries={['us']}
       />)
 
@@ -30,7 +30,7 @@ describe('<ReactPhoneInput /> countries props', () => {
 
   test('has "us" in the preferred countries section', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         preferredCountries={['us']}
       />)
 
@@ -40,11 +40,11 @@ describe('<ReactPhoneInput /> countries props', () => {
 })
 
 
-describe('<ReactPhoneInput /> main props', () => {
+describe('<PhoneInput /> main props', () => {
   test('has "us" as the default/highlighted country', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
-        defaultCountry='us'
+      <PhoneInput
+        country='us'
       />)
 
     fireEvent.click(phoneInput.querySelector('.selected-flag'))
@@ -52,9 +52,9 @@ describe('<ReactPhoneInput /> main props', () => {
     expect(phoneInput.querySelector('li[data-country-code="us"]').classList).toContain('highlight')
   })
 
-  test('receive correct value', () => {
+  test('receive formatted value', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         value='+3802343252'
       />)
 
@@ -63,26 +63,26 @@ describe('<ReactPhoneInput /> main props', () => {
 })
 
 
-describe('<ReactPhoneInput /> event handlers', () => {
-  test('onChange is being called with formatted value and country object as callback arguments', () => {
+describe('<PhoneInput /> event handlers', () => {
+  test('onChange is called with unformatted value and country object as callback arguments', () => {
     const mockFn = jest.fn();
     const { container: phoneInput } = render(
-      <ReactPhoneInput
-        defaultCountry={'us'}
+      <PhoneInput
+        country={'us'}
         onChange={mockFn}
       />)
 
     fireEvent.change(phoneInput.querySelector('.form-control'), {target: {value: '12345'}})
-    expect(mockFn).toHaveBeenCalledWith('+1 (234) 5', {name: 'United States', dialCode: '1', countryCode: 'us'})
+    expect(mockFn).toHaveBeenCalledWith('12345', {name: 'United States', dialCode: '1', 'format': '+. (...) ...-....', countryCode: 'us'}, expect.any(Object), '+1 (234) 5')
   })
 })
 
 
-describe('<ReactPhoneInput /> other props', () => {
-  test('pass inputExtraProps into the input', () => {
+describe('<PhoneInput /> other props', () => {
+  test('pass inputProps into the input', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
-        inputExtraProps={{name: 'phone'}}
+      <PhoneInput
+        inputProps={{name: 'phone'}}
       />)
 
     expect(phoneInput.querySelector('.form-control').name).toBe('phone')
@@ -90,7 +90,7 @@ describe('<ReactPhoneInput /> other props', () => {
 
   test('filter european countries with the regions={\'europe\'} prop', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         regions={'europe'}
       />)
 
@@ -103,7 +103,7 @@ describe('<ReactPhoneInput /> other props', () => {
 
   test('localize countries labels using "localization" prop', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         onlyCountries={['de', 'es']}
         localization={{'Germany': 'Deutschland', 'Spain': 'España'}}
       />)
@@ -115,10 +115,10 @@ describe('<ReactPhoneInput /> other props', () => {
 
   test('render custom mask with the "masks" prop', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
-        defaultCountry='fr'
+      <PhoneInput
+        country='fr'
         onlyCountries={['fr']}
-        masks={{'fr': '+.. (...) ..-..-..'}}
+        masks={{'fr': '(...) ..-..-..'}}
         value='33543773322'
       />)
 
@@ -128,7 +128,7 @@ describe('<ReactPhoneInput /> other props', () => {
 
   test('not renders area codes with disableAreaCodes', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
+      <PhoneInput
         disableAreaCodes
       />)
 
@@ -139,13 +139,66 @@ describe('<ReactPhoneInput /> other props', () => {
 
   test('search correct country via search field', () => {
     const { container: phoneInput } = render(
-      <ReactPhoneInput
-        enableSearchField
+      <PhoneInput
+        enableSearch
       />)
 
     fireEvent.click(phoneInput.querySelector('.selected-flag'))
     fireEvent.change(phoneInput.querySelector('.search-box'), {target: {value: 'gb'}})
     expect(phoneInput.querySelector('.country-list').children.length).toBe(2) // search field & 1 search result
     expect(phoneInput.querySelector('.country-list').children[1].querySelector('.country-name').textContent).toBe('United Kingdom')
+  })
+  
+  test('search "undefined" string returns no non-matching results', () => {
+    const { container: phoneInput } = render(
+      <PhoneInput
+        enableSearch
+      />)
+
+    fireEvent.click(phoneInput.querySelector('.selected-flag'))
+    fireEvent.change(phoneInput.querySelector('.search-box'), {target: {value: 'undefined'}})
+    expect(phoneInput.querySelector('.no-entries-message')).toBeTruthy()
+  })
+})
+
+
+describe('correct value update', () => {
+  test('should rerender without crashing', () => {
+    const { container: phoneInput, rerender } = render(
+      <PhoneInput
+        value={undefined}
+      />)
+
+    rerender(
+      <PhoneInput
+        value="+3802343252"
+      />)
+
+    rerender(
+      <PhoneInput
+        value=""
+      />)
+
+    rerender(
+      <PhoneInput
+        value={null}
+      />)
+
+    expect(phoneInput.querySelector('.selected-flag').children.length).toBe(1)
+    expect(phoneInput.querySelector('.selected-flag').children[0].className).toBe('flag 0')
+  })
+
+  it('renders one prefix when updated from empty value', () => {
+    const { container: phoneInput, rerender } = render(
+      <PhoneInput
+        value=""
+      />)
+
+    rerender(
+      <PhoneInput
+        value="+49 1701 601234"
+      />)
+
+    expect(phoneInput.querySelector('.form-control').value).toBe('+49 1701 601234')
   })
 })

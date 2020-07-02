@@ -5,7 +5,7 @@
 //    iso2 code,
 //    International dial code,
 //    Format (if available),
-//    Order (if >1 country with same dial code),
+//    Order priority (if >1 country with same dial code),
 //    Area codes (if >1 country with same dial code)
 // ]
 //
@@ -14,9 +14,9 @@
 //
 // Sub-regions:
 // ['north-america', 'south-america', 'central-america', 'carribean',
-//  'european-union', 'ex-ussr', 'middle-east', 'north-africa']
+//  'eu-union', 'ex-ussr', 'ex-yugos', 'baltic', 'middle-east', 'north-africa']
 
-const rawAllCountries = [
+const rawCountries = [
   [
     'Afghanistan',
     ['asia'],
@@ -36,12 +36,6 @@ const rawAllCountries = [
     '213'
   ],
   [
-    'American Samoa',
-    ['oceania'],
-    'as',
-    '1684'
-  ],
-  [
     'Andorra',
     ['europe'],
     'ad',
@@ -54,12 +48,6 @@ const rawAllCountries = [
     '244'
   ],
   [
-    'Anguilla',
-    ['america', 'carribean'],
-    'ai',
-    '1264'
-  ],
-  [
     'Antigua and Barbuda',
     ['america', 'carribean'],
     'ag',
@@ -70,7 +58,7 @@ const rawAllCountries = [
     ['america', 'south-america'],
     'ar',
     '54',
-    '+.. (..) ........'
+    '(..) ........'
   ],
   [
     'Armenia',
@@ -89,11 +77,12 @@ const rawAllCountries = [
     ['oceania'],
     'au',
     '61',
-    '+.. ... ... ...'
+    '(..) .... ....',
+    0, ['2', '3', '4', '7', '8', '02', '03', '04', '07', '08']
   ],
   [
     'Austria',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'at',
     '43'
   ],
@@ -132,14 +121,14 @@ const rawAllCountries = [
     ['europe', 'ex-ussr'],
     'by',
     '375',
-    '+... (..) ... .. ..'
+    '(..) ... .. ..'
   ],
   [
     'Belgium',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'be',
     '32',
-    '+.. ... .. .. ..'
+    '... .. .. ..'
   ],
   [
     'Belize',
@@ -152,12 +141,6 @@ const rawAllCountries = [
     ['africa'],
     'bj',
     '229'
-  ],
-  [
-    'Bermuda',
-    ['america', 'north-america'],
-    'bm',
-    '1441'
   ],
   [
     'Bhutan',
@@ -173,7 +156,7 @@ const rawAllCountries = [
   ],
   [
     'Bosnia and Herzegovina',
-    ['europe'],
+    ['europe', 'ex-yugos'],
     'ba',
     '387'
   ],
@@ -188,19 +171,13 @@ const rawAllCountries = [
     ['america', 'south-america'],
     'br',
     '55',
-    '+.. (..) .........',
+    '(..) .........',
   ],
   [
     'British Indian Ocean Territory',
     ['asia'],
     'io',
     '246'
-  ],
-  [
-    'British Virgin Islands',
-    ['america', 'carribean'],
-    'vg',
-    '1284'
   ],
   [
     'Brunei',
@@ -210,7 +187,7 @@ const rawAllCountries = [
   ],
   [
     'Bulgaria',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'bg',
     '359'
   ],
@@ -243,8 +220,8 @@ const rawAllCountries = [
     ['america', 'north-america'],
     'ca',
     '1',
-    '+. (...) ...-....',
-    1, ['204', '236', '249', '250', '289', '306', '343', '365', '387', '403', '416', '418', '431', '437', '438', '450', '506', '514', '519', '548', '579', '581', '587', '604', '613', '639', '647', '672', '705', '709', '742', '778', '780', '782', '807', '819', '825', '867', '873', '902', '905']
+    '(...) ...-....',
+    1, ['204', '226', '236', '249', '250', '289', '306', '343', '365', '387', '403', '416', '418', '431', '437', '438', '450', '506', '514', '519', '548', '579', '581', '587', '604', '613', '639', '647', '672', '705', '709', '742', '778', '780', '782', '807', '819', '825', '867', '873', '902', '905']
   ],
   [
     'Cape Verde',
@@ -259,12 +236,6 @@ const rawAllCountries = [
     '599',
     '',
     1
-  ],
-  [
-    'Cayman Islands',
-    ['america', 'carribean'],
-    'ky',
-    '1345'
   ],
   [
     'Central African Republic',
@@ -289,7 +260,7 @@ const rawAllCountries = [
     ['asia'],
     'cn',
     '86',
-    '+.. ..-.........'
+    '..-.........'
   ],
   [
     'Colombia',
@@ -316,17 +287,11 @@ const rawAllCountries = [
     '242'
   ],
   [
-    'Cook Islands',
-    ['oceania'],
-    'ck',
-    '682'
-  ],
-  [
     'Costa Rica',
     ['america', 'central-america'],
     'cr',
     '506',
-    '+... ....-....'
+    '....-....'
   ],
   [
     'Côte d’Ivoire',
@@ -336,7 +301,7 @@ const rawAllCountries = [
   ],
   [
     'Croatia',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'ex-yugos'],
     'hr',
     '385'
   ],
@@ -356,23 +321,23 @@ const rawAllCountries = [
   ],
   [
     'Cyprus',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'cy',
     '357',
-    '+... .. ......'
+    '.. ......'
   ],
   [
     'Czech Republic',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'cz',
     '420'
   ],
   [
     'Denmark',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'baltic'],
     'dk',
     '45',
-    '+.. .. .. .. ..'
+    '.. .. .. ..'
   ],
   [
     'Djibouti',
@@ -411,7 +376,7 @@ const rawAllCountries = [
     ['america', 'central-america'],
     'sv',
     '503',
-    '+... ....-....'
+    '....-....'
   ],
   [
     'Equatorial Guinea',
@@ -427,28 +392,16 @@ const rawAllCountries = [
   ],
   [
     'Estonia',
-    ['europe', 'european-union', 'ex-ussr'],
+    ['europe', 'eu-union', 'ex-ussr', 'baltic'],
     'ee',
     '372',
-    '+... .... ......'
+    '.... ......'
   ],
   [
     'Ethiopia',
     ['africa'],
     'et',
     '251'
-  ],
-  [
-    'Falkland Islands',
-    ['america', 'south-america'],
-    'fk',
-    '500'
-  ],
-  [
-    'Faroe Islands',
-    ['europe'],
-    'fo',
-    '298'
   ],
   [
     'Fiji',
@@ -458,17 +411,17 @@ const rawAllCountries = [
   ],
   [
     'Finland',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'baltic'],
     'fi',
     '358',
-    '+... .. ... .. ..'
+    '.. ... .. ..'
   ],
   [
     'France',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'fr',
     '33',
-    '+.. . .. .. .. ..'
+    '. .. .. .. ..'
   ],
   [
     'French Guiana',
@@ -502,10 +455,10 @@ const rawAllCountries = [
   ],
   [
     'Germany',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'baltic'],
     'de',
     '49',
-    '+.. .... ........'
+    '.... ........'
   ],
   [
     'Ghana',
@@ -514,22 +467,10 @@ const rawAllCountries = [
     '233'
   ],
   [
-    'Gibraltar',
-    ['europe'],
-    'gi',
-    '350'
-  ],
-  [
     'Greece',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'gr',
     '30'
-  ],
-  [
-    'Greenland',
-    ['america'],
-    'gl',
-    '299'
   ],
   [
     'Grenada',
@@ -556,7 +497,7 @@ const rawAllCountries = [
     ['america', 'central-america'],
     'gt',
     '502',
-    '+... ....-....'
+    '....-....'
   ],
   [
     'Guinea',
@@ -581,7 +522,7 @@ const rawAllCountries = [
     ['america', 'carribean'],
     'ht',
     '509',
-    '+... ....-....'
+    '....-....'
   ],
   [
     'Honduras',
@@ -594,11 +535,11 @@ const rawAllCountries = [
     ['asia'],
     'hk',
     '852',
-    '+... .... ....'
+    '.... ....'
   ],
   [
     'Hungary',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'hu',
     '36'
   ],
@@ -607,14 +548,14 @@ const rawAllCountries = [
     ['europe'],
     'is',
     '354',
-    '+... ... ....'
+    '... ....'
   ],
   [
     'India',
     ['asia'],
     'in',
     '91',
-    '+.. .....-.....'
+    '.....-.....'
   ],
   [
     'Indonesia',
@@ -636,24 +577,24 @@ const rawAllCountries = [
   ],
   [
     'Ireland',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'ie',
     '353',
-    '+... .. .......'
+    '.. .......'
   ],
   [
     'Israel',
     ['middle-east'],
     'il',
     '972',
-    '+... ... ... ....'
+    '... ... ....'
   ],
   [
     'Italy',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'it',
     '39',
-    '+.. ... .......',
+    '... .......',
     0
   ],
   [
@@ -667,7 +608,7 @@ const rawAllCountries = [
     ['asia'],
     'jp',
     '81',
-    '+.. .. .... ....'
+    '.. .... ....'
   ],
   [
     'Jordan',
@@ -680,8 +621,8 @@ const rawAllCountries = [
     ['asia', 'ex-ussr'],
     'kz',
     '7',
-    '+. ... ...-..-..',
-    1, ['313', '327', '7172', '312', '73622', '321', '324', '336', '318', '315', '325', '311', '326', '310']
+    '... ...-..-..',
+    1, ['310', '311', '312', '313', '315', '318', '321', '324', '325', '326', '327', '336', '7172', '73622']
   ],
   [
     'Kenya',
@@ -694,6 +635,12 @@ const rawAllCountries = [
     ['oceania'],
     'ki',
     '686'
+  ],
+  [
+    'Kosovo',
+    ['europe', 'ex-yugos'],
+    'xk',
+    '383'
   ],
   [
     'Kuwait',
@@ -715,7 +662,7 @@ const rawAllCountries = [
   ],
   [
     'Latvia',
-    ['europe', 'european-union', 'ex-ussr'],
+    ['europe', 'eu-union', 'ex-ussr', 'baltic'],
     'lv',
     '371'
   ],
@@ -751,13 +698,13 @@ const rawAllCountries = [
   ],
   [
     'Lithuania',
-    ['europe', 'european-union', 'ex-ussr'],
+    ['europe', 'eu-union', 'ex-ussr', 'baltic'],
     'lt',
     '370'
   ],
   [
     'Luxembourg',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'lu',
     '352'
   ],
@@ -769,7 +716,7 @@ const rawAllCountries = [
   ],
   [
     'Macedonia',
-    ['europe'],
+    ['europe', 'ex-yugos'],
     'mk',
     '389'
   ],
@@ -790,7 +737,7 @@ const rawAllCountries = [
     ['asia'],
     'my',
     '60',
-    '+.. ..-....-....'
+    '..-....-....'
   ],
   [
     'Maldives',
@@ -806,7 +753,7 @@ const rawAllCountries = [
   ],
   [
     'Malta',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'mt',
     '356'
   ],
@@ -838,7 +785,9 @@ const rawAllCountries = [
     'Mexico',
     ['america', 'central-america'],
     'mx',
-    '52'
+    '52',
+    '... ... ....',
+    0, ['55', '81', '33', '656', '664', '998', '774', '229']
   ],
   [
     'Micronesia',
@@ -851,7 +800,7 @@ const rawAllCountries = [
     ['europe'],
     'md',
     '373',
-    '+... (..) ..-..-..'
+    '(..) ..-..-..'
   ],
   [
     'Monaco',
@@ -867,15 +816,9 @@ const rawAllCountries = [
   ],
   [
     'Montenegro',
-    ['europe'],
+    ['europe', 'ex-yugos'],
     'me',
     '382'
-  ],
-  [
-    'Montserrat',
-    ['america', 'carribean'],
-    'ms',
-    '1664'
   ],
   [
     'Morocco',
@@ -915,10 +858,10 @@ const rawAllCountries = [
   ],
   [
     'Netherlands',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'nl',
     '31',
-    '+.. .. ........'
+    '.. ........'
   ],
   [
     'New Caledonia',
@@ -931,7 +874,7 @@ const rawAllCountries = [
     ['oceania'],
     'nz',
     '64',
-    '+.. ...-...-....'
+    '...-...-....'
   ],
   [
     'Nicaragua',
@@ -952,35 +895,17 @@ const rawAllCountries = [
     '234'
   ],
   [
-    'Niue',
-    ['asia'],
-    'nu',
-    '683'
-  ],
-  [
-    'Norfolk Island',
-    ['oceania'],
-    'nf',
-    '672'
-  ],
-  [
     'North Korea',
     ['asia'],
     'kp',
     '850'
   ],
   [
-    'Northern Mariana Islands',
-    ['oceania'],
-    'mp',
-    '1670'
-  ],
-  [
     'Norway',
-    ['europe'],
+    ['europe', 'baltic'],
     'no',
     '47',
-    '+.. ... .. ...'
+    '... .. ...'
   ],
   [
     'Oman',
@@ -993,7 +918,7 @@ const rawAllCountries = [
     ['asia'],
     'pk',
     '92',
-    '+.. ...-.......'
+    '...-.......'
   ],
   [
     'Palau',
@@ -1036,18 +961,18 @@ const rawAllCountries = [
     ['asia'],
     'ph',
     '63',
-    '+.. .... .......'
+    '.... .......'
   ],
   [
     'Poland',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'baltic'],
     'pl',
     '48',
-    '+.. ...-...-...'
+    '...-...-...'
   ],
   [
     'Portugal',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'pt',
     '351'
   ],
@@ -1073,16 +998,16 @@ const rawAllCountries = [
   ],
   [
     'Romania',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'ro',
     '40'
   ],
   [
     'Russia',
-    ['europe', 'asia', 'ex-ussr'],
+    ['europe', 'asia', 'ex-ussr', 'baltic'],
     'ru',
     '7',
-    '+. (...) ...-..-..',
+    '(...) ...-..-..',
     0
   ],
   [
@@ -1090,20 +1015,6 @@ const rawAllCountries = [
     ['africa'],
     'rw',
     '250'
-  ],
-  [
-    'Saint Barthélemy',
-    ['america', 'carribean'],
-    'bl',
-    '590',
-    '',
-    1
-  ],
-  [
-    'Saint Helena',
-    ['africa'],
-    'sh',
-    '290'
   ],
   [
     'Saint Kitts and Nevis',
@@ -1116,20 +1027,6 @@ const rawAllCountries = [
     ['america', 'carribean'],
     'lc',
     '1758'
-  ],
-  [
-    'Saint Martin',
-    ['america', 'carribean'],
-    'mf',
-    '590',
-    '',
-    2
-  ],
-  [
-    'Saint Pierre and Miquelon',
-    ['america', 'north-america'],
-    'pm',
-    '508'
   ],
   [
     'Saint Vincent and the Grenadines',
@@ -1169,7 +1066,7 @@ const rawAllCountries = [
   ],
   [
     'Serbia',
-    ['europe'],
+    ['europe', 'ex-yugos'],
     'rs',
     '381'
   ],
@@ -1190,23 +1087,17 @@ const rawAllCountries = [
     ['asia'],
     'sg',
     '65',
-    '+.. ....-....'
-  ],
-  [
-    'Sint Maarten',
-    ['america', 'carribean'],
-    'sx',
-    '1721'
+    '....-....'
   ],
   [
     'Slovakia',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'sk',
     '421'
   ],
   [
     'Slovenia',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'ex-yugos'],
     'si',
     '386'
   ],
@@ -1233,7 +1124,7 @@ const rawAllCountries = [
     ['asia'],
     'kr',
     '82',
-    '+.. ... .... ....'
+    '... .... ....'
   ],
   [
     'South Sudan',
@@ -1243,10 +1134,10 @@ const rawAllCountries = [
   ],
   [
     'Spain',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'es',
     '34',
-    '+.. ... ... ...'
+    '... ... ...'
   ],
   [
     'Sri Lanka',
@@ -1274,17 +1165,17 @@ const rawAllCountries = [
   ],
   [
     'Sweden',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union', 'baltic'],
     'se',
     '46',
-    '+.. (...) ...-...'
+    '(...) ...-...'
   ],
   [
     'Switzerland',
     ['europe'],
     'ch',
     '41',
-    '+.. .. ... .. ..'
+    '.. ... .. ..'
   ],
   [
     'Syria',
@@ -1329,12 +1220,6 @@ const rawAllCountries = [
     '228'
   ],
   [
-    'Tokelau',
-    ['oceania'],
-    'tk',
-    '690'
-  ],
-  [
     'Tonga',
     ['oceania'],
     'to',
@@ -1357,7 +1242,7 @@ const rawAllCountries = [
     ['europe'],
     'tr',
     '90',
-    '+.. ... ... .. ..'
+    '... ... .. ..'
   ],
   [
     'Turkmenistan',
@@ -1366,22 +1251,10 @@ const rawAllCountries = [
     '993'
   ],
   [
-    'Turks and Caicos Islands',
-    ['america', 'carribean'],
-    'tc',
-    '1649'
-  ],
-  [
     'Tuvalu',
     ['asia'],
     'tv',
     '688'
-  ],
-  [
-    'U.S. Virgin Islands',
-    ['america', 'carribean'],
-    'vi',
-    '1340'
   ],
   [
     'Uganda',
@@ -1394,7 +1267,7 @@ const rawAllCountries = [
     ['europe', 'ex-ussr'],
     'ua',
     '380',
-    '+... (..) ... .. ..'
+    '(..) ... .. ..'
   ],
   [
     'United Arab Emirates',
@@ -1404,17 +1277,17 @@ const rawAllCountries = [
   ],
   [
     'United Kingdom',
-    ['europe', 'european-union'],
+    ['europe', 'eu-union'],
     'gb',
     '44',
-    '+.. .... ......'
+    '.... ......'
   ],
   [
     'United States',
     ['america', 'north-america'],
     'us',
     '1',
-    '+. (...) ...-....',
+    '(...) ...-....',
     0, ['907', '205', '251', '256', '334', '479', '501', '870', '480', '520', '602', '623', '928', '209', '213', '310', '323', '408', '415', '510', '530', '559', '562', '619', '626', '650', '661', '707', '714', '760', '805', '818', '831', '858', '909', '916', '925', '949', '951', '303', '719', '970', '203', '860', '202', '302', '239', '305', '321', '352', '386', '407', '561', '727', '772', '813', '850', '863', '904', '941', '954', '229', '404', '478', '706', '770', '912', '808', '319', '515', '563', '641', '712', '208', '217', '309', '312', '618', '630', '708', '773', '815', '847', '219', '260', '317', '574', '765', '812', '316', '620', '785', '913', '270', '502', '606', '859', '225', '318', '337', '504', '985', '413', '508', '617', '781', '978', '301', '410', '207', '231', '248', '269', '313', '517', '586', '616', '734', '810', '906', '989', '218', '320', '507', '612', '651', '763', '952', '314', '417', '573', '636', '660', '816', '228', '601', '662', '406', '252', '336', '704', '828', '910', '919', '701', '308', '402', '603', '201', '609', '732', '856', '908', '973', '505', '575', '702', '775', '212', '315', '516', '518', '585', '607', '631', '716', '718', '845', '914', '216', '330', '419', '440', '513', '614', '740', '937', '405', '580', '918', '503', '541', '215', '412', '570', '610', '717', '724', '814', '401', '803', '843', '864', '605', '423', '615', '731', '865', '901', '931', '210', '214', '254', '281', '325', '361', '409', '432', '512', '713', '806', '817', '830', '903', '915', '936', '940', '956', '972', '979', '435', '801', '276', '434', '540', '703', '757', '804', '802', '206', '253', '360', '425', '509', '262', '414', '608', '715', '920', '304', '307']
   ],
   [
@@ -1440,7 +1313,7 @@ const rawAllCountries = [
     ['europe'],
     'va',
     '39',
-    '+.. .. .... ....',
+    '.. .... ....',
     1
   ],
   [
@@ -1454,12 +1327,6 @@ const rawAllCountries = [
     ['asia'],
     'vn',
     '84'
-  ],
-  [
-    'Wallis and Futuna',
-    ['oceania'],
-    'wf',
-    '681'
   ],
   [
     'Yemen',
@@ -1479,52 +1346,6 @@ const rawAllCountries = [
     'zw',
     '263'
   ]
-];
+]
 
-let allCountryCodes = {};
-
-function addCountryCode(iso2, dialCode, priority) {
-  if (!(dialCode in allCountryCodes)) {
-    allCountryCodes[dialCode] = [];
-  }
-  const index = priority || 0;
-  allCountryCodes[dialCode][index] = iso2;
-};
-
-const allCountries = [].concat(...rawAllCountries.map((country) => {
-  const countryItem = {
-    name: country[0],
-    regions: country[1],
-    iso2: country[2],
-    dialCode: country[3],
-    format: country[4] || undefined,
-    priority: country[5] || 0,
-    hasAreaCodes: country[6] ? true : false,
-  };
-
-  const areaItems = [];
-
-  country[6] && country[6].map((areaCode) => {
-    const areaItem = {...countryItem};
-    areaItem.regions = country[1];
-    areaItem.dialCode = country[3] + areaCode;
-    areaItem.isAreaCode = true;
-
-    areaItems.push(areaItem);
-
-    addCountryCode(country[2], areaItem.dialCode);
-  });
-
-  addCountryCode(
-    countryItem.iso2,
-    countryItem.dialCode,
-    countryItem.hasAreaCodes
-  );
-
-  return (areaItems.length > 0) ? [countryItem, ...areaItems] : [countryItem];
-}));
-
-export default {
-  allCountries: allCountries,
-  allCountryCodes: allCountryCodes
-};
+export default rawCountries
