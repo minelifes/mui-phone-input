@@ -1,7 +1,7 @@
 {
   "name": "react-phone-input-material-ui",
   "description": "A react component to format phone numbers - with Material UI",
-  "version": "2.13.10",
+  "version": "2.13.11",
   "main": "lib/lib.js",
   "typings": "index.d.ts",
   "scripts": {
