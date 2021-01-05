@@ -1,6 +1,7 @@
-import { render, fireEvent, cleanup } from 'react-testing-library'
+import { render, fireEvent, cleanup, prettyDOM } from 'react-testing-library'
 import React from 'react'
-import PhoneInput from '../src/index'
+import PhoneInput from "../src";
+import {TextField} from "@material-ui/core";
 
 
 afterEach(cleanup)
@@ -9,6 +10,7 @@ describe('<PhoneInput /> countries props', () => {
   test('has not "us" country in the dropdown', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         excludeCountries={['us']}
       />)
 
@@ -20,6 +22,7 @@ describe('<PhoneInput /> countries props', () => {
   test('has only "us" country in the dropdown', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         onlyCountries={['us']}
       />)
 
@@ -31,6 +34,7 @@ describe('<PhoneInput /> countries props', () => {
   test('has "us" in the preferred countries section', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         preferredCountries={['us']}
       />)
 
@@ -44,6 +48,7 @@ describe('<PhoneInput /> main props', () => {
   test('has "us" as the default/highlighted country', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         country='us'
       />)
 
@@ -55,10 +60,10 @@ describe('<PhoneInput /> main props', () => {
   test('receive formatted value', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         value='+3802343252'
       />)
-
-    expect(phoneInput.querySelector('.form-control').value).toBe('+380 (23) 432 52')
+    expect(phoneInput.querySelector('input').value).toBe('+380 (23) 432 52')
   })
 })
 
@@ -68,11 +73,12 @@ describe('<PhoneInput /> event handlers', () => {
     const mockFn = jest.fn();
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         country={'us'}
         onChange={mockFn}
       />)
 
-    fireEvent.change(phoneInput.querySelector('.form-control'), {target: {value: '12345'}})
+    fireEvent.change(phoneInput.querySelector('input'), {target: {value: '12345'}})
     expect(mockFn).toHaveBeenCalledWith('12345', {name: 'United States', dialCode: '1', 'format': '+. (...) ...-....', countryCode: 'us'}, expect.any(Object), '+1 (234) 5')
   })
 })
@@ -82,15 +88,17 @@ describe('<PhoneInput /> other props', () => {
   test('pass inputProps into the input', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         inputProps={{name: 'phone'}}
       />)
 
-    expect(phoneInput.querySelector('.form-control').name).toBe('phone')
+    expect(phoneInput.querySelector('input').name).toBe('phone')
   })
 
   test('filter european countries with the regions={\'europe\'} prop', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         regions={'europe'}
       />)
 
@@ -104,6 +112,7 @@ describe('<PhoneInput /> other props', () => {
   test('localize countries labels using "localization" prop', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         onlyCountries={['de', 'es']}
         localization={{'Germany': 'Deutschland', 'Spain': 'España'}}
       />)
@@ -116,6 +125,7 @@ describe('<PhoneInput /> other props', () => {
   test('render custom mask with the "masks" prop', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         country='fr'
         onlyCountries={['fr']}
         masks={{'fr': '(...) ..-..-..'}}
@@ -123,12 +133,13 @@ describe('<PhoneInput /> other props', () => {
       />)
 
     fireEvent.click(phoneInput.querySelector('.selected-flag'))
-    expect(phoneInput.querySelector('.form-control').value).toBe('+33 (543) 77-33-22')
+    expect(phoneInput.querySelector('input').value).toBe('+33 (543) 77-33-22')
   })
 
   test('not renders area codes with disableAreaCodes', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         disableAreaCodes
       />)
 
@@ -140,6 +151,7 @@ describe('<PhoneInput /> other props', () => {
   test('search correct country via search field', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         enableSearch
       />)
 
@@ -148,10 +160,11 @@ describe('<PhoneInput /> other props', () => {
     expect(phoneInput.querySelector('.country-list').children.length).toBe(2) // search field & 1 search result
     expect(phoneInput.querySelector('.country-list').children[1].querySelector('.country-name').textContent).toBe('United Kingdom')
   })
-  
+
   test('search "undefined" string returns no non-matching results', () => {
     const { container: phoneInput } = render(
       <PhoneInput
+        component={TextField}
         enableSearch
       />)
 
@@ -166,21 +179,25 @@ describe('correct value update', () => {
   test('should rerender without crashing', () => {
     const { container: phoneInput, rerender } = render(
       <PhoneInput
+        component={TextField}
         value={undefined}
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         value="+3802343252"
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         value=""
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         value={null}
       />)
 
@@ -191,14 +208,16 @@ describe('correct value update', () => {
   it('renders one prefix when updated from empty value', () => {
     const { container: phoneInput, rerender } = render(
       <PhoneInput
+        component={TextField}
         value=""
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         value="+49 1701 601234"
       />)
 
-    expect(phoneInput.querySelector('.form-control').value).toBe('+49 1701 601234')
+    expect(phoneInput.querySelector('input').value).toBe('+49 1701 601234')
   })
 })
