@@ -1,6 +1,6 @@
 
 # react-phone-input-material-ui
-**[react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) for [Material UI v1+](https://material-ui.com)**
+**[react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) for [Material UI v4.9.10+](https://material-ui.com)**
 
 **react-phone-input-2: v2.13.7**
 
