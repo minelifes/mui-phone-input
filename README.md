@@ -2,7 +2,7 @@
 # react-phone-input-material-ui
 **[react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) for [Material UI v4.9.10+](https://material-ui.com)**
 
-**react-phone-input-2: v2.13.7**
+**react-phone-input-2: v2.13.8 and [commit abaf8892](https://github.com/bl00mber/react-phone-input-2/commit/abaf8892d0309e1dcb2299f7707e31cf887aaa26)**
 
 Highly customizable phone input component with the auto formatting.
 
