@@ -42,11 +42,15 @@ class PhoneInput extends React.Component {
 
     disableCountryCode: PropTypes.bool,
     disableDropdown: PropTypes.bool,
-    enableLongNumbers: PropTypes.bool,
+    enableLongNumbers: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number
+    ]),
     countryCodeEditable: PropTypes.bool,
     enableSearch: PropTypes.bool,
     disableSearchIcon: PropTypes.bool,
     disableInitialCountryGuess: PropTypes.bool,
+    disableCountryGuess: PropTypes.bool,
 
     regions: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
 
@@ -77,6 +81,7 @@ class PhoneInput extends React.Component {
     onEnterKeyPress: PropTypes.func,
     isValid: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     defaultErrorMessage: PropTypes.string,
+    specialLabel: PropTypes.string,
   };
 
   static defaultProps = {
@@ -115,6 +120,7 @@ class PhoneInput extends React.Component {
     enableSearch: false,
     disableSearchIcon: false,
     disableInitialCountryGuess: false,
+    disableCountryGuess: false,
 
     regions: '',
 
@@ -140,6 +146,7 @@ class PhoneInput extends React.Component {
 
     isValid: true, // (value, selectedCountry, onlyCountries, hiddenAreaCodes) => true | false | 'Message'
     defaultErrorMessage: '',
+    specialLabel: 'Phone',
 
     onEnterKeyPress: null, // null or function
 
@@ -177,7 +184,7 @@ class PhoneInput extends React.Component {
       props.alwaysDefaultMask
     );
 
-    const inputNumber = props.value.replace(/\D/g, '') || '';
+    const inputNumber = props.value ? props.value.replace(/\D/g, '') : '';
 
     let countryGuess;
     if (props.disableInitialCountryGuess) {
@@ -239,11 +246,11 @@ class PhoneInput extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.country !== this.props.country) {
-      this.updateCountry(nextProps.country);
-    } else if (nextProps.value !== this.props.value) {
-      this.updateFormattedNumber(nextProps.value);
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.country !== this.props.country) {
+      this.updateCountry(this.props.country);
+    } else if (prevProps.value !== this.props.value) {
+      this.updateFormattedNumber(this.props.value);
     }
   }
 
@@ -339,10 +346,11 @@ class PhoneInput extends React.Component {
     if (selectedCountry && startsWith(value, prefix + selectedCountry.dialCode)) {
       formattedNumber = this.formatNumber(inputNumber, selectedCountry);
       this.setState({ formattedNumber });
-    } else {
+    }else {
+      if (this.props.disableCountryGuess) {newSelectedCountry = selectedCountry;} else {
       newSelectedCountry =
         this.guessSelectedCountry(inputNumber.substring(0, 6), country, onlyCountries, hiddenAreaCodes) ||
-        selectedCountry;
+        selectedCountry;}
       const dialCode =
         newSelectedCountry && startsWith(inputNumber, prefix + newSelectedCountry.dialCode)
           ? newSelectedCountry.dialCode
@@ -518,7 +526,7 @@ class PhoneInput extends React.Component {
 
   handleInput = (e) => {
     const { value } = e.target;
-    const { prefix } = this.props;
+    const { prefix, onChange } = this.props;
 
     let formattedNumber = this.props.disableCountryCode ? '' : prefix;
     let newSelectedCountry = this.state.selectedCountry;
@@ -533,10 +541,19 @@ class PhoneInput extends React.Component {
       if (value.slice(0, updatedInput.length) !== updatedInput) return;
     }
 
-    if (value === prefix) return this.setState({ formattedNumber: '' });
+    if (value === prefix) {
+      // we should handle change when we delete the last digit
+      if (onChange) onChange('', this.getCountryData(), e, '');
+      return this.setState({ formattedNumber: '' });
+    }
 
-    // Does not exceed 15 digit phone number limit
-    if (value.replace(/\D/g, '').length > 15 && !this.state.enableLongNumbers) return;
+    // Does exceed default 15 digit phone number limit
+    if (value.replace(/\D/g, '').length > 15) {
+      if (this.props.enableLongNumbers === false) return;
+      if (typeof this.props.enableLongNumbers === 'number') {
+        if (value.replace(/\D/g, '').length > this.props.enableLongNumbers) return;
+      }
+    }
 
     // if the input is the same as before, must be some special key like enter etc.
     if (value === this.state.formattedNumber) return;
@@ -548,7 +565,7 @@ class PhoneInput extends React.Component {
       e.returnValue = false;
     }
 
-    const { country, onChange } = this.props;
+    const { country } = this.props;
     const { onlyCountries, selectedCountry, hiddenAreaCodes } = this.state;
 
     if (onChange) e.persist();
@@ -561,9 +578,12 @@ class PhoneInput extends React.Component {
       // the guess country function can then use memoization much more effectively since the set of input it
       // gets has drastically reduced
       if (!this.state.freezeSelection || selectedCountry.dialCode.length > inputNumber.length) {
-        newSelectedCountry =
+        if (this.props.disableCountryGuess) {newSelectedCountry = selectedCountry;}
+        else {
+          newSelectedCountry =
           this.guessSelectedCountry(inputNumber.substring(0, 6), country, onlyCountries, hiddenAreaCodes) ||
           selectedCountry;
+        }
         freezeSelection = false;
       }
       formattedNumber = this.formatNumber(inputNumber, newSelectedCountry);
@@ -764,6 +784,7 @@ class PhoneInput extends React.Component {
         }
         break;
       case keys.ESC:
+      case keys.TAB:
         this.setState(
           {
             showDropdown: false,
@@ -963,7 +984,7 @@ class PhoneInput extends React.Component {
 
   render() {
     const { onlyCountries, selectedCountry, showDropdown, formattedNumber, hiddenAreaCodes } = this.state;
-    const { disableDropdown, renderStringAsFlag, isValid, defaultErrorMessage } = this.props;
+    const { disableDropdown, renderStringAsFlag, isValid, defaultErrorMessage, specialLabel } = this.props;
 
     let isValidValue, errorMessage;
     if (typeof isValid === 'boolean') {
@@ -1014,6 +1035,7 @@ class PhoneInput extends React.Component {
         className={containerClasses}
         style={this.props.style || this.props.containerStyle}
         onKeyDown={this.handleKeydown}>
+        {specialLabel && <div className='special-label'>{specialLabel}</div>}
         {errorMessage && <div className='invalid-number-message'>{errorMessage}</div>}
         <MuiComponent
           className={inputClasses}

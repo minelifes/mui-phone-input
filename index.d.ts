@@ -52,8 +52,8 @@ declare module "react-phone-input-2" {
   }
 
   export interface PhoneInputProps extends PhoneInputEventsProps, Style {
-    country?: string | number | null;
-    value?: string;
+    country?: string | number;
+    value?: string | null;
 
     onlyCountries?: string[];
     preferredCountries?: string[];
@@ -70,7 +70,7 @@ declare module "react-phone-input-2" {
 
     disableCountryCode?: boolean;
     disableDropdown?: boolean;
-    enableLongNumbers?: boolean;
+    enableLongNumbers?: boolean | number;
     countryCodeEditable?: boolean;
     enableSearch?: boolean;
     disableSearchIcon?: boolean;
@@ -98,6 +98,9 @@ declare module "react-phone-input-2" {
     showDropdown?: boolean;
 
     defaultErrorMessage?: string;
+    specialLabel?: string;
+    disableInitialCountryGuess?: boolean;
+    disableCountryGuess?: boolean;
   }
   const PhoneInput: React.FC<PhoneInputProps>;
   export default PhoneInput;
