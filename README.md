@@ -20,7 +20,7 @@ npm install react-phone-input-material-ui --save
 
 or
 
-yarn install react-phone-input-material-ui
+yarn add react-phone-input-material-ui
 ```
 
 ## Usage with Material UI
