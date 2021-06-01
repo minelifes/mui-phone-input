@@ -92,7 +92,8 @@ const rawCountries = [
     'Azerbaijan',
     ['asia', 'ex-ussr'],
     'az',
-    '994'
+    '994',
+    '(..) ... .. ..'
   ],
   [
     'Bahamas',
@@ -268,7 +269,8 @@ const rawCountries = [
     'Colombia',
     ['america', 'south-america'],
     'co',
-    '57'
+    '57',
+    '... ... ....'
   ],
   [
     'Comoros',
