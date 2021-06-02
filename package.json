@@ -1,7 +1,7 @@
 {
   "name": "react-phone-input-material-ui",
   "description": "A react component to format phone numbers - with Material UI",
-  "version": "2.15.0",
+  "version": "2.15.1",
   "main": "lib/lib.js",
   "typings": "index.d.ts",
   "scripts": {
@@ -19,18 +19,14 @@
     "url": "https://github.com/harish-everest/react-phone-input-mui"
   },
   "keywords": [
+    "material",
     "react",
     "phone",
     "format",
-    "number",
-    "input",
     "telephone",
-    "javascript",
     "international",
     "tel",
     "localized",
-    "material",
-    "bootstrap",
     "i18n"
   ],
   "files": [
