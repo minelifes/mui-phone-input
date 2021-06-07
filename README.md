@@ -1,10 +1,9 @@
 
 # react-phone-input-material-ui
-**[react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) for [Material UI v4.9.10+](https://material-ui.com)**
 
-**react-phone-input-2: v2.14.0 and [commit 9deb73af](https://github.com/bl00mber/react-phone-input-2/commit/9deb73afdde6d631ab6e7af9544a31a9ff176b3b)**
+Highly customizable phone input component with auto formatting. Based on the wonderful [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) package.
 
-**Forked from [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2). All the features of [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) are available. I will be update this library frequently to upto date with origin library**
+**[react-phone-input-2 v2.14.0](https://github.com/bl00mber/react-phone-input-2) and [Material UI v4.9.10+](https://material-ui.com)**
 
 ### Original look:
 
@@ -70,7 +69,7 @@ function PhoneField(props) {
 export default withStyles(styles)(PhoneField);
 ```
 
-
+**Forked from [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2). All the features of [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) are available. I will be update this library frequently to upto date with origin library**
 
 ## Contributing
 Code style changes not allowed
