@@ -208,16 +208,19 @@ describe('correct value update', () => {
   test('should rerender country without crashing', () => {
     const { container: phoneInput, rerender } = render(
       <PhoneInput
+        component={TextField}
         country={undefined}
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         country="us"
       />)
 
     rerender(
       <PhoneInput
+        component={TextField}
         country="es"
       />)
 
