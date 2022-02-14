@@ -3,7 +3,7 @@
 
 Highly customizable phone input component with auto formatting. Based on the wonderful [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) package.
 
-**[react-phone-input-2 v2.14.0](https://github.com/bl00mber/react-phone-input-2) and [Material UI v4.9.10+](https://material-ui.com)**
+Supports material-ui v4 and v5.
 
 ### Original look:
 
