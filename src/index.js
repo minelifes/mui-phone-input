@@ -90,7 +90,7 @@ class PhoneInput extends React.Component {
     onMount: PropTypes.func,
     isValid: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     defaultErrorMessage: PropTypes.string,
-    specialLabel: PropTypes.string,
+    label: PropTypes.string,
   };
 
   static defaultProps = {
@@ -156,7 +156,7 @@ class PhoneInput extends React.Component {
 
     isValid: true, // (value, selectedCountry, onlyCountries, hiddenAreaCodes) => true | false | 'Message'
     defaultErrorMessage: "",
-    specialLabel: "Phone",
+    label: "Phone",
 
     onEnterKeyPress: null, // null or function
 
@@ -693,7 +693,10 @@ class PhoneInput extends React.Component {
           caretPosition > 0 &&
           oldFormattedText.length >= formattedNumber.length
         ) {
-          this.numberInputRef.current.setSelectionRange(caretPosition, caretPosition);
+          this.numberInputRef.current.setSelectionRange(
+            caretPosition,
+            caretPosition
+          );
         } else if (oldCaretPosition < oldFormattedText.length) {
           this.numberInputRef.current.setSelectionRange(
             oldCaretPosition,
@@ -1178,7 +1181,7 @@ class PhoneInput extends React.Component {
       renderStringAsFlag,
       isValid,
       defaultErrorMessage,
-      specialLabel,
+      label,
     } = this.props;
 
     let isValidValue, errorMessage;
@@ -1226,78 +1229,80 @@ class PhoneInput extends React.Component {
     const MuiComponent = this.props.component;
 
     return (
-      <div
-        className={`${containerClasses} ${this.props.className}`}
-        style={this.props.style || this.props.containerStyle}
-        onKeyDown={this.handleKeydown}
-      >
-        {specialLabel && <div className="special-label">{specialLabel}</div>}
+      <>
+        <div
+          className={`${containerClasses} ${this.props.className}`}
+          style={this.props.style || this.props.containerStyle}
+          onKeyDown={this.handleKeydown}
+        >
+          <MuiComponent
+            className={inputClasses}
+            style={this.props.inputStyle}
+            onChange={this.handleInput}
+            onClick={this.handleInputClick}
+            onDoubleClick={this.handleDoubleClick}
+            onFocus={this.handleInputFocus}
+            onBlur={this.handleInputBlur}
+            onCopy={this.handleInputCopy}
+            value={formattedNumber}
+            inputRef={this.numberInputRef}
+            onKeyDown={this.handleInputKeyDown}
+            placeholder={this.props.placeholder}
+            disabled={this.props.disabled}
+            fullWidth
+            label={label}
+            error={!isValidValue}
+            type="tel"
+            {...this.props.inputProps}
+            ref={(el) => {
+              this.numberInputRef = el;
+              if (typeof this.props.inputProps.ref === "function") {
+                this.props.inputProps.ref(el);
+              } else if (typeof this.props.inputProps.ref === "object") {
+                this.props.inputProps.ref.current = el;
+              }
+            }}
+          />
+
+          <div
+            className={flagViewClasses}
+            style={this.props.buttonStyle}
+            ref={(el) => (this.dropdownContainerRef = el)}
+          >
+            {renderStringAsFlag ? (
+              <div className={selectedFlagClasses}>{renderStringAsFlag}</div>
+            ) : (
+              <div
+                onClick={
+                  disableDropdown ? undefined : this.handleFlagDropdownClick
+                }
+                className={selectedFlagClasses}
+                title={
+                  selectedCountry
+                    ? `${
+                        selectedCountry.localName || selectedCountry.name
+                      }: + ${selectedCountry.dialCode}`
+                    : ""
+                }
+                tabIndex={disableDropdown ? "-1" : "0"}
+                role="button"
+                aria-haspopup="listbox"
+                aria-expanded={showDropdown ? true : undefined}
+              >
+                <div className={inputFlagClasses}>
+                  {!disableDropdown && <div className={arrowClasses}></div>}
+                </div>
+              </div>
+            )}
+            <div ref={(el) => (this.dropdownContainerRef = el)}>
+              {showDropdown && this.getCountryDropdownList()}
+            </div>
+          </div>
+        </div>
         {errorMessage && (
           <div className="invalid-number-message">{errorMessage}</div>
         )}
-        <MuiComponent
-          className={inputClasses}
-          style={this.props.inputStyle}
-          onChange={this.handleInput}
-          onClick={this.handleInputClick}
-          onDoubleClick={this.handleDoubleClick}
-          onFocus={this.handleInputFocus}
-          onBlur={this.handleInputBlur}
-          onCopy={this.handleInputCopy}
-          value={formattedNumber}
-          inputRef={this.numberInputRef}
-          onKeyDown={this.handleInputKeyDown}
-          placeholder={this.props.placeholder}
-          disabled={this.props.disabled}
-          fullWidth
-          error={!isValidValue}
-          type="tel"
-          {...this.props.inputProps}
-          ref={(el) => {
-            this.numberInputRef = el;
-            if (typeof this.props.inputProps.ref === "function") {
-              this.props.inputProps.ref(el);
-            } else if (typeof this.props.inputProps.ref === "object") {
-              this.props.inputProps.ref.current = el;
-            }
-          }}
-        />
-
-        <div
-          className={flagViewClasses}
-          style={this.props.buttonStyle}
-          ref={(el) => (this.dropdownContainerRef = el)}
-        >
-          {renderStringAsFlag ? (
-            <div className={selectedFlagClasses}>{renderStringAsFlag}</div>
-          ) : (
-            <div
-              onClick={
-                disableDropdown ? undefined : this.handleFlagDropdownClick
-              }
-              className={selectedFlagClasses}
-              title={
-                selectedCountry
-                  ? `${selectedCountry.localName || selectedCountry.name}: + ${
-                      selectedCountry.dialCode
-                    }`
-                  : ""
-              }
-              tabIndex={disableDropdown ? "-1" : "0"}
-              role="button"
-              aria-haspopup="listbox"
-              aria-expanded={showDropdown ? true : undefined}
-            >
-              <div className={inputFlagClasses}>
-                {!disableDropdown && <div className={arrowClasses}></div>}
-              </div>
-            </div>
-          )}
-          <div ref={(el) => (this.dropdownContainerRef = el)}>
-            {showDropdown && this.getCountryDropdownList()}
-          </div>
-        </div>
-      </div>
+      </>
     );
   }
 }
