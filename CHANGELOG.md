@@ -1,3 +1,7 @@
+## 2.17.1 (February 14, 2022)
+* Support material-ui v5
+* Add optional param to peerDependencies so that npm does not show error when installing
+
 ## 2.15.0 (February 3, 2022)
 * Hungarian, Polish, Korean translation
 * numerous fixes
