@@ -1,16 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import PhoneInput from '../../src/index';
+import { TextField } from '@mui/material';
 // import '../../src/style/material.less'; // enable on dev
 
 
 class Demo extends React.Component {
   state = { currentStyle: '', fetch: true }
-
-  componentDidMount () {
-    this.loadCSS('material') // disable on dev
-    // this.setState({ fetch: false }) // enable on dev
-  }
 
   updateStyle = (e) => {
     const text = e.target.textContent
@@ -70,6 +66,7 @@ class Demo extends React.Component {
           {fetch !== true &&
             <div>
             <PhoneInput
+              Component={TextField}
               country='no'
               enableTerritories
             />

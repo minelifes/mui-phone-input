@@ -1,30 +1,48 @@
-import React from 'react';
-import { render } from 'react-dom';
-import PhoneInput from '../../src/index';
-import '../../src/style/style.less';
-
+import React from "react";
+import { render } from "react-dom";
+import PhoneInput from "../../src/index";
+import "../../src/style/style.less";
+import { TextField } from "@mui/material";
 
 class Demo extends React.Component {
-  state = { country: 'br', value: '12345',
-    playgroundProps: {country: 'us', enableAreaCodes: true} }
+  state = {
+    country: "br",
+    value: "12345",
+    playgroundProps: { country: "us", enableAreaCodes: true },
+  };
 
-  playgroundKey = 1
+  playgroundKey = 1;
 
   renderPlayground = (e) => {
     if (e.which === 13) {
       let playgroundProps;
-      try { playgroundProps = JSON.parse(e.target.value) }
-      catch(error) { console.error(error); e.preventDefault(); e.stopPropagation(); }
-      this.setState({ playgroundProps }, () => ++this.playgroundKey)
-      e.preventDefault()
-      e.stopPropagation()
+      try {
+        playgroundProps = JSON.parse(e.target.value);
+      } catch (error) {
+        console.error(error);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      this.setState({ playgroundProps }, () => ++this.playgroundKey);
+      e.preventDefault();
+      e.stopPropagation();
     }
-  }
+  };
 
   render() {
     return (
-      <div style={{fontFamily: "'Roboto', sans-serif", fontSize: '15px', padding: '10px 25px', margin: '20px auto', maxWidth: '1500px'}}>
-        <style dangerouslySetInnerHTML={{__html: `
+      <div
+        style={{
+          fontFamily: "'Roboto', sans-serif",
+          fontSize: "15px",
+          padding: "10px 25px",
+          margin: "20px auto",
+          maxWidth: "1500px",
+        }}
+      >
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
           input[type="tel"].custom-phone-input {
             font-size: 14px;
             border-color: #a0a0a0;
@@ -42,42 +60,55 @@ class Demo extends React.Component {
           .react-tel-input {
             margin-top: 15px;
           }
-        `}} />
-        <p style={{fontWeight: '500'}}>Created by <a style={{color: '#000'}}
-          href="https://github.com/bl00mber/react-phone-input-2">Nick Reiley</a></p>
-        <div style={{display: 'inline-block', verticalAlign: 'top'}}>
+        `,
+          }}
+        />
+        <p style={{ fontWeight: "500" }}>
+          Created by{" "}
+          <a
+            style={{ color: "#000" }}
+            href="https://github.com/bl00mber/react-phone-input-2"
+          >
+            Nick Reiley
+          </a>
+        </p>
+        <div style={{ display: "inline-block", verticalAlign: "top" }}>
           <p>Exclude countries (usa, canada)</p>
           <PhoneInput
-            country='no'
-            excludeCountries={['us', 'ca']}
+            component={TextField}
+            inputProps={{ variant: "standard" }}
+            country="no"
+            excludeCountries={["us", "ca"]}
           />
           <p>Only countries</p>
           <PhoneInput
-            country='gb'
-            onlyCountries={['gb', 'es']}
-            preserveOrder={['onlyCountries']}
+            component={TextField}
+            inputProps={{ variant: "filled" }}
+            country="gb"
+            onlyCountries={["gb", "es"]}
+            preserveOrder={["onlyCountries"]}
           />
           <p>Preferred countries</p>
           <PhoneInput
-            country='it'
-            preferredCountries={['it', 'se']}
+            component={TextField}
+            country="it"
+            preferredCountries={["it", "se"]}
           />
         </div>
 
-        <div style={{display: 'inline-block', marginLeft: '40px'}}>
+        <div style={{ display: "inline-block", marginLeft: "40px" }}>
           <p>Auto country detect by value</p>
           <PhoneInput
-            value='+3802343252'
-            priority={{ca: 0, us: 1, kz: 0, ru: 1}}
+            component={TextField}
+            value="+3802343252"
+            priority={{ ca: 0, us: 1, kz: 0, ru: 1 }}
           />
           <p>Local area codes with enableAreaCodes</p>
-          <PhoneInput
-            country='us'
-            enableAreaCodes
-          />
+          <PhoneInput component={TextField} country="us" enableAreaCodes />
           <p>Dependent territories with enableTerritories</p>
           <PhoneInput
-            country='vg'
+            component={TextField}
+            country="vg"
             enableSearch
             enableTerritories
           />
@@ -85,43 +116,54 @@ class Demo extends React.Component {
           <p>Customizable placeholder</p>
           <p>Customizable styles</p>
           <PhoneInput
-            placeholder='Type your phone here'
+            component={TextField}
+            placeholder="Type your phone here"
             inputStyle={{
-              width: '300px',
-              height: '35px',
-              fontSize: '13px',
-              paddingLeft: '48px',
-              borderRadius: '5px'
+              width: "300px",
+              height: "35px",
+              fontSize: "13px",
+              paddingLeft: "48px",
+              borderRadius: "5px",
             }}
-            buttonStyle={{ borderRadius: '5px 0 0 5px' }}
-            dropdownStyle={{ width: '300px' }}
+            buttonStyle={{ borderRadius: "5px 0 0 5px" }}
+            dropdownStyle={{ width: "300px" }}
           />
           <p>Customizable classes</p>
           <PhoneInput
-            containerClass={'react-tel-input'}
-            inputClass={'custom-phone-input'}
-            buttonClass={'custom-phone-button'}
-            dropdownClass={'custom-dropdown'}
+            component={TextField}
+            containerClass={"react-tel-input"}
+            inputClass={"custom-phone-input"}
+            buttonClass={"custom-phone-button"}
+            dropdownClass={"custom-dropdown"}
           />
         </div>
 
-        <div style={{display: 'inline-block', marginLeft: '40px', verticalAlign: 'top'}}>
+        <div
+          style={{
+            display: "inline-block",
+            marginLeft: "40px",
+            verticalAlign: "top",
+          }}
+        >
           <p>Custom region selected: {`{'europe'}`}</p>
           <PhoneInput
-            country='it'
-            regions={'europe'}
+            component={TextField}
+            country="it"
+            regions={"europe"}
             enableAreaCodes
           />
           <p>Custom regions selected: {`{['north-america', 'carribean']}`}</p>
           <PhoneInput
-            country='ca'
-            regions={['north-america', 'carribean']}
+            component={TextField}
+            country="ca"
+            regions={["north-america", "carribean"]}
           />
           <p>Disabled dropdown and country code</p>
           <PhoneInput
-            onlyCountries={['us']}
-            country='us'
-            placeholder='(702) 123-4567'
+            component={TextField}
+            onlyCountries={["us"]}
+            country="us"
+            placeholder="(702) 123-4567"
             disableCountryCode
             disableDropdown
           />
@@ -129,104 +171,157 @@ class Demo extends React.Component {
           <p>Non-editable country code</p>
           <p>Autofocus</p>
           <PhoneInput
-            country='de'
-            onlyCountries={['de', 'es', 'us']}
-            localization={{'Germany': 'Deutschland', 'Spain': 'España'}}
+            component={TextField}
+            country="de"
+            onlyCountries={["de", "es", "us"]}
+            localization={{ Germany: "Deutschland", Spain: "España" }}
             countryCodeEditable={false}
             inputExtraProps={{
-              name: 'tel',
+              name: "tel",
               required: true,
-              autoFocus: true
+              autoFocus: true,
             }}
           />
           <p>enableAreaCodeStretch: +61 (2), +61 (02)</p>
           <PhoneInput
-            onlyCountries={['au']}
+            component={TextField}
+            onlyCountries={["au"]}
             enableAreaCodes
             enableAreaCodeStretch
-            country='au'
+            country="au"
           />
         </div>
-        <div style={{display: 'inline-block', marginLeft: '40px', verticalAlign: 'top'}}>
+        <div
+          style={{
+            display: "inline-block",
+            marginLeft: "40px",
+            verticalAlign: "top",
+          }}
+        >
           <p>Search using iso2 or country name</p>
           <PhoneInput
-            country='nl'
+            component={TextField}
+            country="nl"
             enableSearch
-            enableAreaCodes={['ca']}
+            enableAreaCodes={["ca"]}
           />
           <PhoneInput
-            country='it'
-            preferredCountries={['us', 'ca']}
+            component={TextField}
+            country="it"
+            preferredCountries={["us", "ca"]}
             enableSearch
           />
           <PhoneInput
-            country='pl'
-            searchClass='search-class'
-            searchStyle={{margin: '0', width: '97%', height: '30px'}}
+            component={TextField}
+            country="pl"
+            searchClass="search-class"
+            searchStyle={{ margin: "0", width: "97%", height: "30px" }}
             enableSearch
             disableSearchIcon
-            searchNotFound='Not found'
-            prefix=''
+            searchNotFound="Not found"
+            prefix=""
           />
           <p>Custom masks & area codes</p>
           <PhoneInput
-            country='at'
-            onlyCountries={['fr', 'at', 'gr', 'us']}
-            masks={{fr: '(...) ..-..-..', at: '(....) ...-....', zz: '... ...'}}
-            areaCodes={{gr: ['2694', '2647'], fr: ['369', '463'], us: ['300']}}
+            component={TextField}
+            country="at"
+            onlyCountries={["fr", "at", "gr", "us"]}
+            masks={{
+              fr: "(...) ..-..-..",
+              at: "(....) ...-....",
+              zz: "... ...",
+            }}
+            areaCodes={{
+              gr: ["2694", "2647"],
+              fr: ["369", "463"],
+              us: ["300"],
+            }}
             enableAreaCodes
           />
           <PhoneInput
-            country='eu'
-            onlyCountries={['fr', 'at', 'gr', 'us']}
-            masks={{fr: '(...) ..-..-..', at: '(....) ...-....', zz: '... ...'}}
-            areaCodes={{gr: ['2694', '2647'], fr: ['369', '463'], us: ['300']}}
+            component={TextField}
+            country="eu"
+            onlyCountries={["fr", "at", "gr", "us"]}
+            masks={{
+              fr: "(...) ..-..-..",
+              at: "(....) ...-....",
+              zz: "... ...",
+            }}
+            areaCodes={{
+              gr: ["2694", "2647"],
+              fr: ["369", "463"],
+              us: ["300"],
+            }}
             enableAreaCodes
           />
           <p>State manipulations</p>
           <PhoneInput
+            component={TextField}
             value={this.state.value}
-            onChange={(value, country, e, formattedValue) => {console.log(value, country, e, formattedValue);
-              this.setState({ value })}}
+            onChange={(value, country, e, formattedValue) => {
+              console.log(value, country, e, formattedValue);
+              this.setState({ value });
+            }}
             enableAreaCodes
-            defaultErrorMessage='Invalid value'
+            defaultErrorMessage="Invalid value"
             isValid={(value, country) => {
               if (value.match(/12345/)) {
-                return 'Invalid value: '+value+', '+country.name
+                return "Invalid value: " + value + ", " + country.name;
               } else if (value.match(/1234/)) {
-                return false
+                return false;
               } else {
-                return true
+                return true;
               }
             }}
           />
           <PhoneInput
-            containerStyle={{marginBottom: '15px'}}
+            component={TextField}
+            containerStyle={{ marginBottom: "15px" }}
             country={this.state.country}
-            prefix=''
+            prefix=""
             enableAreaCodes
           />
-          <button onClick={() => {
-            if (this.state.country == 'br') {this.setState({country: '1205'})}
-            else {this.setState({country: 'br'})}
-          }}>Change default country</button>
+          <button
+            onClick={() => {
+              if (this.state.country == "br") {
+                this.setState({ country: "1205" });
+              } else {
+                this.setState({ country: "br" });
+              }
+            }}
+          >
+            Change default country
+          </button>
         </div>
 
         <div>
-          <br/><br/>
+          <br />
+          <br />
           <p>Press enter to render</p>
-          <textarea name="" id="" cols="55" rows="3" spellCheck="false"
-            style={{borderRadius: '5px', fontFamily: 'Roboto', fontSize: '14px'}}
-            onKeyDown={this.renderPlayground} defaultValue={JSON.stringify(this.state.playgroundProps)} />
+          <textarea
+            name=""
+            id=""
+            cols="55"
+            rows="3"
+            spellCheck="false"
+            style={{
+              borderRadius: "5px",
+              fontFamily: "Roboto",
+              fontSize: "14px",
+            }}
+            onKeyDown={this.renderPlayground}
+            defaultValue={JSON.stringify(this.state.playgroundProps)}
+          />
 
-          <PhoneInput key={this.playgroundKey} {...this.state.playgroundProps}/>
+          <PhoneInput
+            component={TextField}
+            key={this.playgroundKey}
+            {...this.state.playgroundProps}
+          />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default render(
-  <Demo />,
-  document.getElementById('root')
-);
+export default render(<Demo />, document.getElementById("root"));
