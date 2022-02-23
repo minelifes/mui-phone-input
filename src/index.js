@@ -1225,7 +1225,7 @@ class PhoneInput extends React.Component {
       open: showDropdown,
       [this.props.buttonClass]: true,
     });
-    const inputFlagClasses = `flag ${selectedCountry && selectedCountry.iso2}`;
+    const inputFlagClasses = `flag ${selectedCountry && selectedCountry.iso2} ${this.props.inputProps? this.props.inputProps.variant : 'standard'}`;
     const MuiComponent = this.props.component;
 
     return (
