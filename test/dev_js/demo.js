@@ -118,23 +118,7 @@ class Demo extends React.Component {
           <PhoneInput
             component={TextField}
             placeholder="Type your phone here"
-            inputStyle={{
-              width: "300px",
-              height: "35px",
-              fontSize: "13px",
-              paddingLeft: "48px",
-              borderRadius: "5px",
-            }}
-            buttonStyle={{ borderRadius: "5px 0 0 5px" }}
-            dropdownStyle={{ width: "300px" }}
-          />
-          <p>Customizable classes</p>
-          <PhoneInput
-            component={TextField}
-            containerClass={"react-tel-input"}
-            inputClass={"custom-phone-input"}
-            buttonClass={"custom-phone-button"}
-            dropdownClass={"custom-dropdown"}
+            inputProps={{variant:'standard'}}
           />
         </div>
 
