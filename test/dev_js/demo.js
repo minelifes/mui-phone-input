@@ -118,7 +118,7 @@ class Demo extends React.Component {
           <PhoneInput
             component={TextField}
             placeholder="Type your phone here"
-            inputProps={{variant:'standard'}}
+            inputProps={{ variant: "standard" }}
           />
         </div>
 
@@ -257,6 +257,21 @@ class Demo extends React.Component {
                 return true;
               }
             }}
+          />
+          <PhoneInput
+            component={TextField}
+            inputProps={{ variant: "filled" }}
+            value={""}
+          />
+          <PhoneInput
+            component={TextField}
+            inputProps={{ variant: "standard" }}
+            value={""}
+          />
+          <PhoneInput
+            component={TextField}
+            inputProps={{ variant: "outlined" }}
+            value={""}
           />
           <PhoneInput
             component={TextField}

@@ -57,6 +57,7 @@ declare module "react-phone-input-material-ui" {
   }
 
   export interface PhoneInputProps extends PhoneInputEventsProps, Style {
+    component: React.ComponentType,
     country?: string | number;
     value?: string | null;
 
@@ -107,6 +108,6 @@ declare module "react-phone-input-material-ui" {
     disableInitialCountryGuess?: boolean;
     disableCountryGuess?: boolean;
   }
-  const PhoneInput: React.FC<PhoneInputProps>;
+  const PhoneInput: React.ComponentType<PhoneInputProps>;
   export default PhoneInput;
 }

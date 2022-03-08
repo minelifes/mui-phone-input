@@ -203,7 +203,7 @@ describe('correct value update', () => {
       />)
 
     expect(phoneInput.querySelector('.selected-flag').children.length).toBe(1)
-    expect(phoneInput.querySelector('.selected-flag').children[0].className).toBe('flag 0')
+    expect(phoneInput.querySelector('.selected-flag').children[0].className).toBe('flag 0 standard')
   })
 
   test('should rerender country without crashing', () => {
@@ -226,7 +226,7 @@ describe('correct value update', () => {
       />)
 
     expect(phoneInput.querySelector('.selected-flag').children.length).toBe(1)
-    expect(phoneInput.querySelector('.selected-flag').children[0].className).toBe('flag es')
+    expect(phoneInput.querySelector('.selected-flag').children[0].className).toBe('flag es standard')
   })
 
   it('renders one prefix when updated from empty value', () => {
