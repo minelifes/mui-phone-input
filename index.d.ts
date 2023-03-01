@@ -104,7 +104,7 @@ declare module "react-phone-input-material-ui" {
     showDropdown?: boolean;
 
     defaultErrorMessage?: string;
-    specialLabel?: string;
+    label?: string;
     disableInitialCountryGuess?: boolean;
     disableCountryGuess?: boolean;
   }
