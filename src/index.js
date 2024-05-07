@@ -641,8 +641,10 @@ class PhoneInput extends React.Component {
   };
 
   handleDoubleClick = (e) => {
-    const len = e.target.value.length;
-    e.target.setSelectionRange(0, len);
+    if (e.target.value) {
+      const len = e.target.value.length;
+      e.target.setSelectionRange(0, len);
+    }
   };
 
   handleFlagItemClick = (country, e) => {
