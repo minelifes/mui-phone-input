@@ -43,12 +43,14 @@ declare module "react-phone-input-material-ui" {
     ): void;
     onKeyDown?(event: React.KeyboardEvent<HTMLInputElement>): void;
     onEnterKeyPress?(event: React.KeyboardEvent<HTMLInputElement>): void;
-    isValid?: ((
-      value: string,
-      country: object,
-      countries: object[],
-      hiddenAreaCodes: object[],
-    ) => boolean | string) | boolean;
+    isValid?:
+      | ((
+          value: string,
+          country: object,
+          countries: object[],
+          hiddenAreaCodes: object[]
+        ) => boolean | string)
+      | boolean;
     onMount?(
       value: string,
       data: CountryData | {},
@@ -57,7 +59,7 @@ declare module "react-phone-input-material-ui" {
   }
 
   export interface PhoneInputProps extends PhoneInputEventsProps, Style {
-    component: React.ComponentType,
+    component: React.ComponentType;
     country?: string | number;
     value?: string | null;
 
@@ -105,6 +107,8 @@ declare module "react-phone-input-material-ui" {
 
     defaultErrorMessage?: string;
     label?: string;
+    variant: "outlined" | "filled" | "standard";
+    specialLabel?: string;
     disableInitialCountryGuess?: boolean;
     disableCountryGuess?: boolean;
   }

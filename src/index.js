@@ -74,6 +74,7 @@ class PhoneInput extends React.Component {
     isValid: true, // (value, selectedCountry, onlyCountries, hiddenAreaCodes) => true | false | 'Message'
     defaultErrorMessage: "",
     label: "Phone",
+    variant: "outlined",
 
     onEnterKeyPress: null, // null or function
 
@@ -109,7 +110,9 @@ class PhoneInput extends React.Component {
         props.localization,
         props.prefix,
         props.defaultMask,
-        props.alwaysDefaultMask
+        props.alwaysDefaultMask,
+        props.label,
+        props.variant
       );
 
     const inputNumber = props.value ? props.value.replace(/\D/g, "") : "";
@@ -1101,6 +1104,7 @@ class PhoneInput extends React.Component {
       isValid,
       defaultErrorMessage,
       label,
+      variant
     } = this.props;
 
     let isValidValue, errorMessage;
@@ -1172,6 +1176,7 @@ class PhoneInput extends React.Component {
             disabled={this.props.disabled}
             fullWidth
             label={label}
+            variant={variant}
             error={!isValidValue}
             type="tel"
             {...this.props.inputProps}
@@ -1310,6 +1315,7 @@ PhoneInput.propTypes = {
   isValid: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   defaultErrorMessage: PropTypes.string,
   label: PropTypes.string,
+  variant: PropTypes.string,
 };
 
 export default PhoneInput;
