@@ -1,9 +1,10 @@
-
 # react-phone-input-material-ui
 
 Highly customizable phone input component with auto formatting. Based on the wonderful [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) package.
 
-Supports material-ui v4 and v5.
+Supports Material-UI v5 and v6.
+
+---
 
 ### Original look:
 
@@ -24,25 +25,15 @@ yarn add react-phone-input-material-ui
 
 ## Usage with Material UI
 
-Mandatory props: `value` and `onChange` for controlling field; `component`, ideally `TextField`
+Mandatory props: `value` and `onChange` for controlling field; `component`, which should be `TextField` from `@mui/material`.
 
 ```jsx
 import React from 'react';
 import ReactPhoneInput from 'react-phone-input-material-ui';
-import { TextField, withStyles } from '@material-ui/core';
-
-const styles = theme => ({
-  field: {
-    margin: '10px 0',
-  },
-  countryList: {
-    ...theme.typography.body1,
-  },
-});
-
+import { TextField } from '@mui/material';
 
 function PhoneField(props) {
-  const { value, defaultCountry, onChange, classes } = props;
+  const { value, defaultCountry, onChange } = props;
 
   return (
     <React.Fragment>
@@ -58,16 +49,35 @@ function PhoneField(props) {
         value={value}
         defaultCountry={defaultCountry || 'gb'}
         onChange={onChange}
-        inputClass={classes.field}
-        dropdownClass={classes.countryList}
         component={TextField}
+        inputProps={{
+          sx: {
+            margin: '10px 0',
+          },
+        }}
+        dropdownStyle={{
+          fontFamily: 'sans-serif',
+        }}
       />
     </React.Fragment>
   );
 }
 
-export default withStyles(styles)(PhoneField);
+export default PhoneField;
 ```
+
+---
+
+
+### MUI Compatibility Table
+
+| `react-phone-input-material-ui` Version | Supported MUI Version |
+|-----------------------------------------|----------------------|
+| `^3.0.0`                                | `v5`, `v6`           |
+| `^2.x`                                  | `v4`, `v5`           |
+| `^1.x`                                  | `v4`                 |
+
+---
 
 **Forked from [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2). All the features of [react-phone-input-2](https://github.com/bl00mber/react-phone-input-2) are available. I will be update this library frequently to upto date with origin library**
 

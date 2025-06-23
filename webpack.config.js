@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const TARGET = process.env.TARGET;
@@ -23,7 +23,7 @@ const common = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         include: [
           path.resolve(ROOT_PATH, 'src'),
           path.resolve(ROOT_PATH, 'test')
@@ -31,7 +31,7 @@ const common = {
       },
       {
         test: /\.png.*$/,
-        loaders: ['url-loader?limit=100000&mimetype=image/png'],
+        use: ['url-loader?limit=100000&mimetype=image/png'],
         exclude: /node_modules/
       }
     ]
@@ -46,20 +46,22 @@ if (TARGET === 'dev_js' || TARGET === 'dev_css') {
     },
     devtool: 'inline-source-map',
     devServer: {
-      publicPath: 'http://localhost:3001/',
-      port: '3001',
+      devMiddleware: {
+        publicPath: 'http://localhost:3001/',
+      },
+      port: 3001,
       host: '0.0.0.0',
       historyApiFallback: true,
       hot: true,
-      inline: true,
-      progress: true,
-      contentBase: ['lib', 'test/index']
+      static: {
+        directory: path.join('test/index'),
+      },
     },
     module: {
       rules: [
         {
           test: /\.less$/,
-          loader: 'style-loader!css-loader!less-loader'
+          use: ['style-loader', 'css-loader', 'less-loader']
         }
       ]
     },
