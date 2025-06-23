@@ -7,8 +7,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "jest",
-    "start": "TARGET=dev_js NODE_ENV=development webpack-dev-server --progress",
-    "start:css": "TARGET=dev_css NODE_ENV=development webpack-dev-server --progress",
+    "start": "TARGET=dev_js NODE_ENV=development webpack-dev-server",
+    "start:css": "TARGET=dev_css NODE_ENV=development webpack-dev-server",
     "build": "npm run build:js && npm run build:css",
     "build:js": "TARGET=build_js NODE_ENV=production webpack --mode production --progress",
     "build:css": "TARGET=build_css NODE_ENV=production webpack --mode production --progress",
@@ -78,10 +78,10 @@
     "react-testing-library": "^6.0.4",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
-    "webpack": "^4.29.5",
+    "webpack": "^5",
     "webpack-bundle-analyzer": "^3.0.4",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^5.0.4",
+    "webpack-cli": "^5",
+    "webpack-dev-server": "^4",
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
@@ -90,7 +90,6 @@
     "lodash.memoize": "^4.1.2",
     "lodash.reduce": "^4.6.0",
     "lodash.startswith": "^4.2.1",
-    "lodash": "^4.17.21",
     "prop-types": "^15.8.1"
   },
   "peerDependencies": {
