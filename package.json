@@ -1,18 +1,19 @@
 {
   "name": "react-phone-input-material-ui",
   "description": "A material-ui react component to format phone numbers. Based on react-phone-input-2",
-  "version": "2.18.1",
+  "version": "3.0.0",
   "main": "lib/lib.js",
+  "module": "lib/lib.esm.js",
   "typings": "index.d.ts",
   "scripts": {
     "test": "jest",
     "start": "TARGET=dev_js NODE_ENV=development webpack-dev-server --progress",
     "start:css": "TARGET=dev_css NODE_ENV=development webpack-dev-server --progress",
     "build": "npm run build:js && npm run build:css",
-    "build:js": "TARGET=build_js NODE_ENV=production webpack -p --progress",
-    "build:css": "TARGET=build_css NODE_ENV=production webpack -p --progress && rm ./main.js",
+    "build:js": "TARGET=build_js NODE_ENV=production webpack --mode production --progress",
+    "build:css": "TARGET=build_css NODE_ENV=production webpack --mode production --progress",
     "prepublishOnly": "npm run build",
-    "analyze": "TARGET=analyze NODE_ENV=production webpack -p --progress"
+    "analyze": "TARGET=analyze NODE_ENV=production webpack --mode production --progress"
   },
   "repository": {
     "type": "git",
@@ -57,11 +58,11 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@material-ui/core": "^4.9.10",
-    "@mui/material": "^5.4.1",
+    "@babel/core": "^7.24.7",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.19",
+    "@testing-library/react": "^16.0.0",
     "babel-loader": "^8.0.5",
     "babel-preset-react-app": "^7.0.1",
     "css-loader": "^2.1.0",
@@ -80,8 +81,8 @@
     "webpack": "^4.29.5",
     "webpack-bundle-analyzer": "^3.0.4",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14",
-    "webpack-merge": "^4.2.1"
+    "webpack-dev-server": "^5.0.4",
+    "webpack-merge": "^5.10.0"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -89,28 +90,25 @@
     "lodash.memoize": "^4.1.2",
     "lodash.reduce": "^4.6.0",
     "lodash.startswith": "^4.2.1",
-    "prop-types": "^15.7.2"
+    "lodash": "^4.17.21",
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@material-ui/core": "^4.12.3",
-    "@mui/material": "^5.4.1",
-    "react": "^16.12.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.12.0 || ^17.0.0 || ^18.0.0"
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
+    "@mui/material": ">=5",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "peerDependenciesMeta": {
-    "@material-ui/core": {
-      "optional": true
-    },
     "@mui/material": {
-      "optional": true
+      "optional": false
     },
     "@emotion/react": {
-      "optional": true
+      "optional": false
     },
     "@emotion/styled": {
-      "optional": true
+      "optional": false
     }
   }
 }
