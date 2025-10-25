@@ -1,4 +1,8 @@
 ## 2.17.1 (February 14, 2022)
+* Support material-ui v7
+* Support New React version
+
+## 2.17.1 (February 14, 2022)
 * Support material-ui v5
 * Add optional param to peerDependencies so that npm does not show error when installing
 
