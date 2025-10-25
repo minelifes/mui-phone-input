@@ -1,5 +1,5 @@
 {
-  "name": "react-phone-input-material-ui",
+  "name": "mui-phone-input",
   "description": "A material-ui react component to format phone numbers. Based on react-phone-input-2",
   "version": "3.0.0",
   "main": "lib/lib.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/harish-everest/react-phone-input-mui"
+    "url": "https://github.com/minelifes/mui-phone-input"
   },
   "keywords": [
     "material",
@@ -45,9 +45,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/harish-everest/react-phone-input-mui/issues"
+    "url": "https://github.com/minelifes/mui-phone-input/issues"
   },
-  "homepage": "https://github.com/harish-everest/react-phone-input-mui",
+  "homepage": "https://github.com/minelifes/mui-phone-input",
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/test/__mocks__/fileMock.js",
