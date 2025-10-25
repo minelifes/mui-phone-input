@@ -1,4 +1,4 @@
-declare module "react-phone-input-material-ui" {
+declare module "mui-phone-input" {
   import React from "react";
 
   export interface CountryData {
@@ -49,13 +49,13 @@ declare module "react-phone-input-material-ui" {
       formattedValue: string
     ): void;
     isValid?:
-      | ((
-          value: string,
-          country: object,
-          countries: object[],
-          hiddenAreaCodes: object[]
-        ) => boolean | string)
-      | boolean;
+    | ((
+      value: string,
+      country: object,
+      countries: object[],
+      hiddenAreaCodes: object[]
+    ) => boolean | string)
+    | boolean;
   }
 
   export interface PhoneInputProps extends PhoneInputEventsProps, Style {
